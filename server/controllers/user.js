@@ -86,14 +86,12 @@ class UserController {
 
   // github 登录
   static async githubLogin(ctx, code) {
-    console.log(code);
     const result = await axios.post(GITHUB.access_token_url, {
       client_id: GITHUB.client_id,
       client_secret: GITHUB.client_secret,
       code
     });
 
-    console.log(result.data);
     const { access_token } = decodeQuery(result.data);
 
     if (access_token) {

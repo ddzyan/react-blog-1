@@ -1,5 +1,5 @@
-const Router = require('koa-router')
-const router = new Router({ prefix: '/article' })
+const Router = require('koa-router');
+const router = new Router({ prefix: '/article' });
 const {
   create,
   getList,
@@ -13,7 +13,7 @@ const {
   delete: del,
   outputList,
   delList
-} = require('../controllers/article')
+} = require('../controllers/article');
 
 router
   .post('/', create) // 创建文章
@@ -28,6 +28,6 @@ router
   .get('/:id', findById) // 获取文章
   .put('/:id', update) // 修改文章
   .delete('/list/:list', delList) // 删除指定文章列表
-  .delete('/:id', del) // 删除指定文章
+  .delete('/:id', del); // 删除指定文章
 
-module.exports = router
+module.exports = router;

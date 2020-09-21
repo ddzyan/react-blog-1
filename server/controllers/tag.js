@@ -1,5 +1,5 @@
 // import models
-const { tag: TagModel, category: CategoryModel, sequelize } = require('../models')
+const { tag: TagModel, category: CategoryModel, sequelize } = require('../models');
 
 class TagController {
   static async getTagList(ctx) {
@@ -10,9 +10,9 @@ class TagController {
         articleId: { $not: null }
       },
       order: [[sequelize.fn('COUNT', sequelize.col('name')), 'desc']]
-    })
+    });
 
-    ctx.body = data
+    ctx.body = data;
   }
 
   static async getCategoryList(ctx) {
@@ -23,10 +23,10 @@ class TagController {
         articleId: { $not: null }
       },
       order: [[sequelize.fn('COUNT', sequelize.col('name')), 'desc']]
-    })
+    });
 
-    ctx.body = data
+    ctx.body = data;
   }
 }
 
-module.exports = TagController
+module.exports = TagController;

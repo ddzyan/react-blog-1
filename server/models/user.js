@@ -1,4 +1,4 @@
-const moment = require('moment')
+const moment = require('moment');
 
 module.exports = (sequelize, dataTypes) => {
   const User = sequelize.define(
@@ -42,27 +42,27 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.DATE,
         defaultValue: dataTypes.NOW,
         get() {
-          return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss')
+          return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
         }
       },
       updatedAt: {
         type: dataTypes.DATE,
         defaultValue: dataTypes.NOW,
         get() {
-          return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss')
+          return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
         }
       }
     },
     {
       timestamps: true
     }
-  )
+  );
 
   User.associate = models => {
-    User.hasMany(models.comment)
-    User.hasMany(models.reply)
-    User.hasMany(models.ip)
-  }
+    User.hasMany(models.comment);
+    User.hasMany(models.reply);
+    User.hasMany(models.ip);
+  };
 
-  return User
-}
+  return User;
+};

@@ -1,4 +1,4 @@
-const moment = require('moment')
+const moment = require('moment');
 // article 表
 module.exports = (sequelize, dataTypes) => {
   const Tag = sequelize.define('tag', {
@@ -11,7 +11,7 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING(100),
       allowNull: false
     }
-  })
+  });
 
   Tag.associate = models => {
     Tag.belongsTo(models.article, {
@@ -19,8 +19,8 @@ module.exports = (sequelize, dataTypes) => {
       foreignKey: 'articleId',
       targetKey: 'id',
       constraints: false
-    })
-  }
+    });
+  };
 
-  return Tag
-}
+  return Tag;
+};
