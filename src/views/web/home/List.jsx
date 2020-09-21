@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
-import { calcCommentsCount } from '@/utils'
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { calcCommentsCount } from '@/utils';
 
 // components
-import { Divider } from 'antd'
-import SvgIcon from '@/components/SvgIcon'
-import ArticleTag from '@/components/ArticleTag'
+import { Divider } from 'antd';
+import SvgIcon from '@/components/SvgIcon';
+import ArticleTag from '@/components/ArticleTag';
 
 const ArticleList = props => {
-  const history = useHistory()
-  const { list } = props
+  const history = useHistory();
+  const { list } = props;
 
   function jumpTo(id) {
-    history.push(`/article/${id}`)
+    history.push(`/article/${id}`);
   }
 
   return (
@@ -44,7 +44,7 @@ const ArticleList = props => {
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};
 
-export default ArticleList
+export default ArticleList;

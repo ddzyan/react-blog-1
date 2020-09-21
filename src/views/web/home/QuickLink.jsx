@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
 
 // components
-import { Icon, Divider, Empty, Drawer, Tag, Spin } from 'antd'
+import { Icon, Divider, Empty, Drawer, Tag, Spin } from 'antd';
 
-const title = '快速导航'
+const title = '快速导航';
 
 const List = props => {
-  const { list, showTitle = true } = props
+  const { list, showTitle = true } = props;
   return (
     <ul className='preview'>
       {showTitle && <Divider>{title}</Divider>}
@@ -19,17 +19,17 @@ const List = props => {
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};
 
 /**
- * article quick link
+ * @description 文章快捷连接
  */
 const QuickLink = props => {
-  const isGreaterThan1300 = useMediaQuery({ query: '(min-width: 1300px)' })
-  const { list } = props
+  const isGreaterThan1300 = useMediaQuery({ query: '(min-width: 1300px)' });
+  const { list } = props;
 
-  const [drawerVisible, setDrawerVisible] = useState(false)
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   return isGreaterThan1300 ? <List list={list} /> : (
     <>
@@ -46,8 +46,8 @@ const QuickLink = props => {
         <List list={list} showTitle={false} />
       </Drawer>
     </>
-  )
-}
+  );
+};
 
-export default QuickLink
+export default QuickLink;
 

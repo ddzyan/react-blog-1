@@ -1,5 +1,5 @@
-import Layout from '@/layout/admin'
-import lazy from '@/components/Lazy'
+import Layout from '@/layout/admin';
+import lazy from '@/components/Lazy';
 
 export default {
   path: '/admin',
@@ -12,4 +12,4 @@ export default {
     { path: 'article/manager', component: lazy(() => import('@/views/admin/article/manager')) },
     { path: 'user', component: lazy(() => import('@/views/admin/user')) }
   ]
-}
+};

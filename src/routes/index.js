@@ -1,11 +1,9 @@
-import webRoutes from './web'
-import adminRoutes from './admin'
+import webRoutes from './web';
+import adminRoutes from './admin';
 
 const routes = [
   adminRoutes,
   webRoutes
+];
 
-  // ..
-]
-
-export default routes
+export default routes;

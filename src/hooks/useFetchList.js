@@ -1,9 +1,9 @@
-import { useEffect, useState, useCallback } from 'react'
-import axios from '@/utils/axios'
+import { useEffect, useState, useCallback } from 'react';
+import axios from '@/utils/axios';
 
-import { useLocation, useHistory } from 'react-router-dom'
-import { decodeQuery } from '@/utils'
-import useMount from './useMount'
+import { useLocation, useHistory } from 'react-router-dom';
+import { decodeQuery } from '@/utils';
+import useMount from './useMount';
 
 /**
  * fetchList
@@ -18,75 +18,76 @@ export default function useFetchList({
   withLoading = true,
   fetchDependence = []
 }) {
-  const [dataList, setDataList] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 })
+  const [dataList, setDataList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
 
-  const location = useLocation()
-  const history = useHistory()
+  const location = useLocation();
+  const history = useHistory();
 
   useMount(() => {
     if (fetchDependence.length === 0) {
-      fetchWithLoading()
+      fetchWithLoading();
     }
-  })
+  });
 
   useEffect(() => {
     if (fetchDependence.length > 0) {
-      const params = decodeQuery(location.search)
-      fetchWithLoading(params)
+      const params = decodeQuery(location.search);
+      fetchWithLoading(params);
     }
-  }, fetchDependence)
+  }, fetchDependence);
 
   function fetchWithLoading(params) {
-    withLoading && setLoading(true)
-    fetchDataList(params)
+    withLoading && setLoading(true);
+    fetchDataList(params);
   }
 
+  // 拉去数据列表
   function fetchDataList(params) {
     const requestParams = {
       page: pagination.current,
       pageSize: pagination.pageSize,
       ...queryParams,
       ...params
-    }
+    };
 
-    requestParams.page = parseInt(requestParams.page)
-    requestParams.pageSize = parseInt(requestParams.pageSize)
+    requestParams.page = parseInt(requestParams.page);
+    requestParams.pageSize = parseInt(requestParams.pageSize);
     axios
       .get(requestUrl, { params: requestParams })
       .then(response => {
-        pagination.total = response.count
-        pagination.current = parseInt(requestParams.page)
-        pagination.pageSize = parseInt(requestParams.pageSize)
-        setPagination({ ...pagination })
-        setDataList(response.rows)
+        pagination.total = response.count;
+        pagination.current = parseInt(requestParams.page);
+        pagination.pageSize = parseInt(requestParams.pageSize);
+        setPagination({ ...pagination });
+        setDataList(response.rows);
         // console.log('%c useFetchList: ', 'background: yellow', requestParams, response)
-        withLoading && setLoading(false)
+        withLoading && setLoading(false);
       })
-      .catch(e => withLoading && setLoading(false))
+      .catch(e => withLoading && setLoading(false));
   }
 
   const onFetch = useCallback(
     params => {
-      withLoading && setLoading(true)
-      fetchDataList(params)
+      withLoading && setLoading(true);
+      fetchDataList(params);
     },
     [queryParams]
-  )
+  );
 
   const handlePageChange = useCallback(
     page => {
       // return
       const search = location.search.includes('page=')
         ? location.search.replace(/(page=)(\d+)/, `$1${page}`)
-        : `?page=${page}`
-      const jumpUrl = location.pathname + search
+        : `?page=${page}`;
+      const jumpUrl = location.pathname + search;
 
-      history.push(jumpUrl)
+      history.push(jumpUrl);
     },
     [queryParams, location.pathname]
-  )
+  );
 
   return {
     dataList,
@@ -96,5 +97,5 @@ export default function useFetchList({
       onChange: handlePageChange
     },
     onFetch
-  }
+  };
 }

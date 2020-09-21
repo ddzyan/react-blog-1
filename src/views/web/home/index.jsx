@@ -1,35 +1,39 @@
-import React, { useMemo } from 'react'
-import './index.less'
+import React, { useMemo } from 'react';
+import './index.less';
 
-import { decodeQuery, translateMarkdown } from '@/utils'
-import { HOME_PAGESIZE } from '@/utils/config'
+import { decodeQuery, translateMarkdown } from '@/utils';
+import { HOME_PAGESIZE } from '@/utils/config';
 
 // components
-import QuickLink from './QuickLink'
-import ArticleList from './List'
+import QuickLink from './QuickLink';
+import ArticleList from './List';
 
-import { Empty, Spin } from 'antd'
-import Pagination from '@/components/Pagination'
+import { Empty, Spin } from 'antd';
+import Pagination from '@/components/Pagination';
 
 // hooks
-import useFetchList from '@/hooks/useFetchList'
+import useFetchList from '@/hooks/useFetchList';
 
+// 函数组件
 const Home = props => {
+  // 向服务器获取文章列表
   const { loading, pagination, dataList } = useFetchList({
     requestUrl: '/article/list',
     queryParams: { pageSize: HOME_PAGESIZE },
     fetchDependence: [props.location.search]
-  })
+  });
 
+  // 文章内容 markdown 格式转换
   const list = useMemo(() => {
     return [...dataList].map(item => {
-      const index = item.content.indexOf('<!--more-->')
-      item.content = translateMarkdown(item.content.slice(0, index))
-      return item
-    })
-  }, [dataList])
+      const index = item.content.indexOf('<!--more-->');
+      item.content = translateMarkdown(item.content.slice(0, index));
+      return item;
+    });
+  }, [dataList]);
 
-  const { keyword } = decodeQuery(props.location.search)
+  // 解析路由查询参数
+  const { keyword } = decodeQuery(props.location.search);
 
   return (
     <Spin tip='Loading...' spinning={loading}>
@@ -55,13 +59,13 @@ const Home = props => {
           {...pagination}
           onChange={
             page => {
-              document.querySelector('.app-main').scrollTop = 0 // turn to the top
-              pagination.onChange(page)
+              document.querySelector('.app-main').scrollTop = 0; // turn to the top
+              pagination.onChange(page);
             }
           } />
       </div>
     </Spin>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
