@@ -7,7 +7,7 @@ module.exports = {
     'no-unused-vars': 'off', // 定义了但是未使用 不报错
     indent: ['error', 2], // JavaScript代码强制使用一致的缩进：2格缩进
     'arrow-parens': ['error', 'as-needed'], // 箭头函数的参数可以不使用圆括号
-    semi: ['error', 'never'], // 不使用分号
+    semi: ['error', 'always'], // 不使用分号
     // 'import/no-unresolved': 'off,', // 取消自动解析路径，以此开启alias的别名路径设置
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
@@ -146,7 +146,7 @@ module.exports = {
       'avoidEscape': true,
       'allowTemplateLiterals': true
     }],
-    'semi': [2, 'never'],
+    'semi': [2, 'always'],
     'semi-spacing': [2, {
       'before': false,
       'after': true
