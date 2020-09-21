@@ -1,24 +1,24 @@
-import React, { Component, Fragment, useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import './index.less'
-import { useSelector, useDispatch } from 'react-redux'
-import { DISCUSS_AVATAR } from '@/config'
+import React, { Component, Fragment, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import './index.less';
+import { useSelector, useDispatch } from 'react-redux';
+import { DISCUSS_AVATAR } from '@/config';
 
 // methods
-import axios from '@/utils/axios'
-import { calcCommentsCount } from '@/utils'
-import { loginout } from '@/redux/user/actions'
-import useAjaxLoading from '@/hooks/useAjaxLoading'
+import axios from '@/utils/axios';
+import { calcCommentsCount } from '@/utils';
+import { loginout } from '@/redux/user/actions';
+import useAjaxLoading from '@/hooks/useAjaxLoading';
 
 // components
-import SvgIcon from '@/components/SvgIcon'
-import { Comment, Avatar, Form, Button, Divider, Input, Icon, Menu, Dropdown, message, Modal } from 'antd'
-import List from './list' // 评论列表
-import AppAvatar from '@/components/Avatar'
+import SvgIcon from '@/components/SvgIcon';
+import { Comment, Avatar, Form, Button, Divider, Input, Icon, Menu, Dropdown, message, Modal } from 'antd';
+import List from './list'; // 评论列表
+import AppAvatar from '@/components/Avatar';
 
-import useBus from '@/hooks/useBus'
+import useBus from '@/hooks/useBus';
 
-const { TextArea } = Input
+const { TextArea } = Input;
 
 const Editor = ({ onChange, onSubmit, submitting, value, articleId }) => (
   <div>
@@ -35,17 +35,17 @@ const Editor = ({ onChange, onSubmit, submitting, value, articleId }) => (
       </div>
     </Form.Item>
   </div>
-)
+);
 
 function Discuss(props) {
-  const dispatch = useDispatch()
-  const bus = useBus()
-  const userInfo = useSelector(state => state.user)
-  const { username, role } = userInfo
+  const dispatch = useDispatch();
+  const bus = useBus();
+  const userInfo = useSelector(state => state.user);
+  const { username, role } = userInfo;
 
-  const { commentList, articleId } = props
-  const [value, setValue] = useState('')
-  const [submitting, withLoading] = useAjaxLoading()
+  const { commentList, articleId } = props;
+  const [value, setValue] = useState('');
+  const [submitting, withLoading] = useAjaxLoading();
 
   const renderDropdownMenu = () => {
     return username ? (
@@ -57,40 +57,40 @@ function Discuss(props) {
         <Menu.Item key='login'>登录</Menu.Item>
         <Menu.Item key='register'>注册</Menu.Item>
       </Menu>
-    )
-  }
+    );
+  };
 
   function handleMenuClick(e) {
     switch (e.key) {
       case 'login':
-        bus.emit('openSignModal', 'login')
+        bus.emit('openSignModal', 'login');
 
-        break
+        break;
 
       case 'register':
-        bus.emit('openSignModal', 'register')
+        bus.emit('openSignModal', 'register');
 
-        break
+        break;
 
       case 'loginout':
-        dispatch(loginout())
-        break
+        dispatch(loginout());
+        break;
 
       default:
-        break
+        break;
     }
   }
 
   function handleSubmit() {
-    if (!value) return
-    if (!userInfo.username) return message.warn('您未登陆，请登录后再试。')
+    if (!value) return;
+    if (!userInfo.username) return message.warn('您未登陆，请登录后再试。');
 
     withLoading(
       axios.post('/discuss', { articleId: props.articleId, content: value, userId: userInfo.userId })
     ).then(res => {
-      setValue('')
-      props.setCommentList(res.rows)
-    })
+      setValue('');
+      props.setCommentList(res.rows);
+    });
   }
 
   return (
@@ -129,11 +129,11 @@ function Discuss(props) {
 
       <List commentList={commentList} articleId={articleId} setCommentList={props.setCommentList} />
     </div>
-  )
+  );
 }
 
 Discuss.propTypes = {
   commentList: PropTypes.array.isRequired
-}
+};
 
-export default Discuss
+export default Discuss;

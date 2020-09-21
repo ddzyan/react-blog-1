@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { Result, Button } from 'antd'
+import { Result, Button } from 'antd';
 
 function PageNotFound(props) {
   return (
@@ -12,13 +12,13 @@ function PageNotFound(props) {
         <Button
           type='primary'
           onClick={() => {
-            props.history.push('/')
+            props.history.push('/');
           }}>
           Back Home
         </Button>
       }
     />
-  )
+  );
 }
 
-export default PageNotFound
+export default PageNotFound;

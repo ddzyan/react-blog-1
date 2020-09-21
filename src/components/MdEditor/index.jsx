@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react';
 
-import SimpleMDE from 'react-simplemde-editor'
-import 'easymde/dist/easymde.min.css'
+import SimpleMDE from 'react-simplemde-editor';
+import 'easymde/dist/easymde.min.css';
 
-import { translateMarkdown } from '@/utils'
+import { translateMarkdown } from '@/utils';
 
 function MdEditor(props) {
   // useEffect(() => {}, [])
@@ -15,7 +15,7 @@ function MdEditor(props) {
       onChange={props.onChange}
       options={{ autofocus: true, autosave: true, previewRender: translateMarkdown }}
     />
-  )
+  );
 }
 
-export default MdEditor
+export default MdEditor;

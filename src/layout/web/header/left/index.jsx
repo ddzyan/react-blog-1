@@ -1,35 +1,35 @@
-import React, { useState } from 'react'
-import { Icon, Dropdown, Menu, Input, message } from 'antd'
-import { Link } from 'react-router-dom'
-import { useHistory, useLocation } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Icon, Dropdown, Menu, Input, message } from 'antd';
+import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 // import config
-import { HEADER_BLOG_NAME } from '@/config'
-import navList from '../right/navList'
+import { HEADER_BLOG_NAME } from '@/config';
+import navList from '../right/navList';
 
 // icon
-import SvgIcon from '@/components/SvgIcon'
+import SvgIcon from '@/components/SvgIcon';
 
 const HeaderLeft = props => {
-  const [keyword, setKeyword] = useState('')
-  const history = useHistory()
+  const [keyword, setKeyword] = useState('');
+  const history = useHistory();
 
   function handleChange(e) {
-    e.preventDefault()
-    setKeyword(e.target.value)
+    e.preventDefault();
+    setKeyword(e.target.value);
   }
 
   function onPressEnter(e) {
-    e.target.blur()
+    e.target.blur();
   }
 
   function onSubmit() {
-    history.push(`/?page=1&keyword=${keyword}`)
-    setKeyword('')
+    history.push(`/?page=1&keyword=${keyword}`);
+    setKeyword('');
   }
 
   function clickSearch(e) {
-    e.stopPropagation()
+    e.stopPropagation();
   }
 
   const menu = (
@@ -54,7 +54,7 @@ const HeaderLeft = props => {
         />
       </Menu.Item>
     </Menu>
-  )
+  );
 
   return (
     <div className='header-left'>
@@ -68,7 +68,7 @@ const HeaderLeft = props => {
         <Icon type='menu-o' className='header-dropdown-icon' />
       </Dropdown>
     </div>
-  )
-}
+  );
+};
 
-export default HeaderLeft
+export default HeaderLeft;

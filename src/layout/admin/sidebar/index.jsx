@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import { NavLink, withRouter } from 'react-router-dom'
-import { Menu, Icon } from 'antd'
-import menu from './menu'
-const SubMenu = Menu.SubMenu
+import React, { useState, useEffect } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
+import { Menu, Icon } from 'antd';
+import menu from './menu';
+const SubMenu = Menu.SubMenu;
 
 function getMenuOpenKeys(menu) {
-  const list = []
+  const list = [];
   menu.forEach(item => {
     if (item.children) {
       item.children.forEach(child => {
         list.push({
           pathname: child.path,
           openKey: item.path
-        })
-      })
+        });
+      });
     }
-  })
-  return list
+  });
+  return list;
 }
-const menuMenuOpenKeys = getMenuOpenKeys(menu)
+const menuMenuOpenKeys = getMenuOpenKeys(menu);
 
 function AdminSidebar(props) {
   // 菜单渲染
   function renderMenu(list) {
     const renderRoute = item => {
-      if (item.hidden) return null
+      if (item.hidden) return null;
       if (item.children) {
         return (
           <SubMenu
@@ -37,7 +37,7 @@ function AdminSidebar(props) {
             }>
             {item.children.map(r => renderRoute(r))}
           </SubMenu>
-        )
+        );
       } else {
         return (
           item.name && (
@@ -48,14 +48,14 @@ function AdminSidebar(props) {
               </NavLink>
             </Menu.Item>
           )
-        )
+        );
       }
-    }
-    return list.map(l => renderRoute(l))
+    };
+    return list.map(l => renderRoute(l));
   }
 
-  const target = menuMenuOpenKeys.find(d => d.pathname === props.selectedKeys[0])
-  const openKeys = target ? [target.openKey] : []
+  const target = menuMenuOpenKeys.find(d => d.pathname === props.selectedKeys[0]);
+  const openKeys = target ? [target.openKey] : [];
   return (
     <Menu
       defaultOpenKeys={openKeys}
@@ -65,7 +65,7 @@ function AdminSidebar(props) {
       style={{ height: '100%', borderRight: 0 }}>
       {renderMenu(menu)}
     </Menu>
-  )
+  );
 }
 
-export default withRouter(AdminSidebar)
+export default withRouter(AdminSidebar);

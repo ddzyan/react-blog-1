@@ -1,28 +1,28 @@
-import React, { Component, useState, useEffect } from 'react'
-import { connect, useSelector, useDispatch } from 'react-redux'
-import { Table, Form, Tag, Switch, message, Input, Button, Popconfirm, Select } from 'antd'
+import React, { Component, useState, useEffect } from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { Table, Form, Tag, Switch, message, Input, Button, Popconfirm, Select } from 'antd';
 
-import axios from '@/utils/axios'
+import axios from '@/utils/axios';
 
-import { Link } from 'react-router-dom'
-import dayjs from '@/utils/dayjs'
-import download from '@/utils/download'
+import { Link } from 'react-router-dom';
+import dayjs from '@/utils/dayjs';
+import download from '@/utils/download';
 
-import useAntdTable from '@/hooks/useAntdTable'
+import useAntdTable from '@/hooks/useAntdTable';
 
-import useBreadcrumb from '@/hooks/useBreadcrumb'
+import useBreadcrumb from '@/hooks/useBreadcrumb';
 
 function ArticleManager(props) {
-  useBreadcrumb(['文章管理'])
+  useBreadcrumb(['文章管理']);
 
   const { tagList, categoryList } = useSelector(state => ({
     tagList: state.article.tagList,
     categoryList: state.article.categoryList
-  }))
-  const { getFieldDecorator } = props.form
-  const [queryParams, setQueryParams] = useState({})
-  const [batch, setBatch] = useState(false)
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
+  }));
+  const { getFieldDecorator } = props.form;
+  const [queryParams, setQueryParams] = useState({});
+  const [batch, setBatch] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const { tableProps, updateList, onSearch } = useAntdTable({
     requestUrl: '/article/list',
@@ -40,7 +40,7 @@ function ArticleManager(props) {
             <Tag color={renderColor(d.name, tagList)} key={d.name}>
               <Link to={`/tags/${d.name}`}>{d.name}</Link>
             </Tag>
-          ))
+          ));
         }
       },
       {
@@ -51,7 +51,7 @@ function ArticleManager(props) {
             <Tag color='#2db7f5' key={d.name}>
               <Link to={`/categories/${d.name}`}>{d.name}</Link>
             </Tag>
-          ))
+          ));
         }
       },
       {
@@ -90,50 +90,50 @@ function ArticleManager(props) {
                 </Popconfirm>
               </li>
             </ul>
-          )
+          );
         }
       }
     ]
-  })
+  });
 
   function renderColor(name, list) {
-    const target = list.find(l => l.name === name)
-    return target && target.color
+    const target = list.find(l => l.name === name);
+    return target && target.color;
   }
 
   function output(articleId) {
-    download(`/article/output/${articleId}`)
+    download(`/article/output/${articleId}`);
   }
 
   function outputSelected() {
-    download(`/article/output/list/${selectedRowKeys}`)
+    download(`/article/output/list/${selectedRowKeys}`);
   }
 
   function outputAll() {
-    download('/article/output/all')
+    download('/article/output/all');
   }
 
   function delList() {
     axios.delete(`/article/list/${selectedRowKeys}`).then(() => {
-      onSearch()
-      setSelectedRowKeys([])
-    })
+      onSearch();
+      setSelectedRowKeys([]);
+    });
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        setQueryParams({ ...queryParams, ...values })
-        onSearch({ ...queryParams, ...values })
+        setQueryParams({ ...queryParams, ...values });
+        onSearch({ ...queryParams, ...values });
       }
-    })
+    });
   }
 
   const rowSelection = batch ? {
     selectedRowKeys,
     onChange: selectList => setSelectedRowKeys(selectList)
-  } : null
+  } : null;
 
   return (
     <div className='admin-article-manager'>
@@ -200,7 +200,7 @@ function ArticleManager(props) {
           </>
         )} />
     </div>
-  )
+  );
 }
 
-export default Form.create()(ArticleManager)
+export default Form.create()(ArticleManager);

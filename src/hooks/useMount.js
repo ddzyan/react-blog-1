@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 export default function useMount(func) {
   useEffect(() => {
-    typeof func === 'function' && func()
-  }, [])
+    typeof func === 'function' && func();
+  }, []);
 }

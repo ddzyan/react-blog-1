@@ -1,15 +1,15 @@
-import React, { Component, useEffect, useState } from 'react'
-import './index.less'
+import React, { Component, useEffect, useState } from 'react';
+import './index.less';
 
-import axios from '@/utils/axios'
-import { TAG_PAGESIZE } from '@/utils/config'
+import axios from '@/utils/axios';
+import { TAG_PAGESIZE } from '@/utils/config';
 
-import { Link } from 'react-router-dom'
-import { Timeline, Spin } from 'antd'
-import Pagination from '@/components/Pagination'
+import { Link } from 'react-router-dom';
+import { Timeline, Spin } from 'antd';
+import Pagination from '@/components/Pagination';
 
 // hooks
-import useFetchList from '@/hooks/useFetchList'
+import useFetchList from '@/hooks/useFetchList';
 
 function TimeLineList({ list, name, type }) {
   return (
@@ -30,19 +30,19 @@ function TimeLineList({ list, name, type }) {
         ))}
       </Timeline>
     </div>
-  )
+  );
 }
 
 // 根据 tag / category 获取文章列表
 function List(props) {
-  const type = props.location.pathname.includes('categories') ? 'category' : 'tag'
-  const name = props.match.params.name
+  const type = props.location.pathname.includes('categories') ? 'category' : 'tag';
+  const name = props.match.params.name;
 
   const { loading, pagination, dataList } = useFetchList({
     requestUrl: '/article/list',
     queryParams: { [type]: name, pageSize: TAG_PAGESIZE },
     fetchDependence: [props.location.search, props.location.pathname]
-  })
+  });
 
   return (
     <Spin tip='Loading...' spinning={loading} delay={500}>
@@ -54,7 +54,7 @@ function List(props) {
         />
       </div>
     </Spin>
-  )
+  );
 }
 
-export default List
+export default List;

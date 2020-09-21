@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import PropTypes from 'prop-types'
-import { withRouter, Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { Icon, Tag, Divider } from 'antd'
-import SvgIcon from '@/components/SvgIcon'
+import PropTypes from 'prop-types';
+import { withRouter, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Icon, Tag, Divider } from 'antd';
+import SvgIcon from '@/components/SvgIcon';
 
 function getColor(name, colorList) {
-  const target = colorList.find(c => c.name === name)
-  return target ? target.color : ''
+  const target = colorList.find(c => c.name === name);
+  return target ? target.color : '';
 }
 
 const ArticleTag = props => {
-  const tagColorList = useSelector(state => state.article.tagList) // 相当于 connect(state => state.article.tagList)(ArticleTag)
-  const { tagList, categoryList } = props
+  const tagColorList = useSelector(state => state.article.tagList); // 相当于 connect(state => state.article.tagList)(ArticleTag)
+  const { tagList, categoryList } = props;
 
   return (
     <>
@@ -40,12 +40,12 @@ const ArticleTag = props => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
 ArticleTag.propTypes = {
   tagList: PropTypes.array.isRequired,
   categoryList: PropTypes.array.isRequired
-}
+};
 
-export default withRouter(ArticleTag)
+export default withRouter(ArticleTag);

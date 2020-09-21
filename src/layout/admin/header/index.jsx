@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-import { loginout } from '@/redux/user/actions'
+import { loginout } from '@/redux/user/actions';
 
-import { Button, Icon, Dropdown, Menu, Avatar } from 'antd'
-import logo from '@/assets/images/avatar.jpeg'
+import { Button, Icon, Dropdown, Menu, Avatar } from 'antd';
+import logo from '@/assets/images/avatar.jpeg';
 
 function AdminHeader(props) {
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const userInfo = useSelector(state => state.user)
+  const userInfo = useSelector(state => state.user);
 
   const menu = (
     <Menu className='menu'>
@@ -23,14 +23,14 @@ function AdminHeader(props) {
       <Menu.Item>
         <span
           onClick={e => {
-            dispatch(loginout())
-            history.push('/')
+            dispatch(loginout());
+            history.push('/');
           }}>
           退出登录
         </span>
       </Menu.Item>
     </Menu>
-  )
+  );
 
   return (
     <>
@@ -44,7 +44,7 @@ function AdminHeader(props) {
         </Dropdown>
       </div>
     </>
-  )
+  );
 }
 
-export default AdminHeader
+export default AdminHeader;

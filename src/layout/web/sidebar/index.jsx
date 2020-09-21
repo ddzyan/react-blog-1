@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { SIDEBAR } from '@/config'
-import axios from '@/utils/axios'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { SIDEBAR } from '@/config';
+import axios from '@/utils/axios';
+import { useSelector } from 'react-redux';
 
 // components
-import { Link } from 'react-router-dom'
-import Href from '@/components/Href'
-import { Icon, Divider, Tag } from 'antd'
+import { Link } from 'react-router-dom';
+import Href from '@/components/Href';
+import { Icon, Divider, Tag } from 'antd';
 
-import { Alert } from 'antd'
-import { ANNOUNCEMENT } from '@/config'
+import { Alert } from 'antd';
+import { ANNOUNCEMENT } from '@/config';
 
-import useFetchList from '@/hooks/useFetchList'
+import useFetchList from '@/hooks/useFetchList';
 
 function SideBar(props) {
-  const tagList = useSelector(state => state.article.tagList || [])
+  const tagList = useSelector(state => state.article.tagList || []);
 
   const { dataList: articleList } = useFetchList({
     withLoading: false,
@@ -24,7 +24,7 @@ function SideBar(props) {
       page: 1,
       pageSize: 6
     }
-  })
+  });
 
   return (
     <aside className='app-sidebar'>
@@ -60,7 +60,7 @@ function SideBar(props) {
         ))}
       </div>
     </aside>
-  )
+  );
 }
 
-export default SideBar
+export default SideBar;

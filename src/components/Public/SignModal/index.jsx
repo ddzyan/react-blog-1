@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Icon, Input, Button, Modal } from 'antd'
-import { useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Form, Icon, Input, Button, Modal } from 'antd';
+import { useLocation } from 'react-router-dom';
 
-import { GITHUB } from '@/config'
-import { save } from '@/utils/storage'
+import { GITHUB } from '@/config';
+import { save } from '@/utils/storage';
 
 // redux
-import { login, register } from '@/redux/user/actions'
-import { useDispatch } from 'react-redux'
+import { login, register } from '@/redux/user/actions';
+import { useDispatch } from 'react-redux';
 
 // hooks
-import { useListener } from '@/hooks/useBus'
+import { useListener } from '@/hooks/useBus';
 
 const FormItemLayout = {
   labelCol: {
@@ -21,50 +21,50 @@ const FormItemLayout = {
     xs: { span: 24 },
     sm: { span: 18 }
   }
-}
+};
 
 function FormItem(props) {
-  const { children, ...rest } = props
-  return <Form.Item {...FormItemLayout} {...rest}>{children}</Form.Item>
+  const { children, ...rest } = props;
+  return <Form.Item {...FormItemLayout} {...rest}>{children}</Form.Item>;
 }
 
 function SignModal(props) {
-  const dispatch = useDispatch() // dispatch hooks
-  const location = useLocation() // location
-  const [visible, setVisible] = useState(false)
-  const [type, setType] = useState('login')
-  const { getFieldDecorator } = props.form
+  const dispatch = useDispatch(); // dispatch hooks
+  const location = useLocation(); // location
+  const [visible, setVisible] = useState(false);
+  const [type, setType] = useState('login');
+  const { getFieldDecorator } = props.form;
 
   useListener('openSignModal', type => {
-    props.form.resetFields()
-    setType(type)
-    setVisible(true)
-  })
+    props.form.resetFields();
+    setType(type);
+    setVisible(true);
+  });
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     props.form.validateFieldsAndScroll((errors, values) => {
-      if (errors) return
-      const action = type === 'login' ? login : register
+      if (errors) return;
+      const action = type === 'login' ? login : register;
       dispatch(action(values)).then(() => {
-        setVisible(false) // type =  login | register
-      })
-    })
+        setVisible(false); // type =  login | register
+      });
+    });
   }
 
   function githubLogin() {
-    const { pathname, search } = location
-    save('prevRouter', `${pathname}${search}`)
-    window.location.href = `${GITHUB.url}?client_id=${GITHUB.client_id}`
+    const { pathname, search } = location;
+    save('prevRouter', `${pathname}${search}`);
+    window.location.href = `${GITHUB.url}?client_id=${GITHUB.client_id}`;
   }
 
   // 确认密码
   function compareToFirstPassword(rule, value, callback) {
-    const form = props.form
+    const form = props.form;
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!')
+      callback('Two passwords that you enter is inconsistent!');
     } else {
-      callback()
+      callback();
     }
   }
 
@@ -130,7 +130,7 @@ function SignModal(props) {
         </Button>
       )}
     </Modal>
-  )
+  );
 }
 
-export default Form.create()(SignModal)
+export default Form.create()(SignModal);

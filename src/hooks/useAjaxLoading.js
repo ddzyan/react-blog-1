@@ -1,26 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 /**
  * ajax request with loading
 */
 export default function useRequestLoading() {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   function withLoading(request) {
     if (request instanceof Promise) {
       return new Promise((reslove, reject) => {
-        setLoading(true)
+        setLoading(true);
         request.then(res => {
-          reslove(res)
-          setLoading(false)
+          reslove(res);
+          setLoading(false);
         }).catch(e => {
-          reject(e)
-          setLoading(false)
-        })
-      })
+          reject(e);
+          setLoading(false);
+        });
+      });
     }
   }
 
-  return [loading, withLoading]
+  return [loading, withLoading];
 }
 

@@ -19,4 +19,4 @@ export default [
     title: '关于',
     link: '/about'
   }
-]
+];

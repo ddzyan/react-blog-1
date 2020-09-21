@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Modal, Upload, Icon, notification, Tag, message, Table } from 'antd'
+import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Modal, Upload, Icon, notification, Tag, message, Table } from 'antd';
 
-import { API_BASE_URL } from '@/config'
-import { getToken, debounce } from '@/utils'
-import axios from '@/utils/axios'
+import { API_BASE_URL } from '@/config';
+import { getToken, debounce } from '@/utils';
+import axios from '@/utils/axios';
 
 // hooks
-import { useListener } from '@/hooks/useBus'
-import useBoolean from '@/hooks/useBoolean'
+import { useListener } from '@/hooks/useBus';
+import useBoolean from '@/hooks/useBoolean';
 
 function UploadModal(props) {
-  const dispatch = useDispatch() // dispatch hooks
-  const authorId = useSelector(state => state.user.userId)
-  const timer = useRef(null)
+  const dispatch = useDispatch(); // dispatch hooks
+  const authorId = useSelector(state => state.user.userId);
+  const timer = useRef(null);
 
-  const confirmLoading = useBoolean(false)
-  const { value: visible, setTrue, setFalse } = useBoolean(false)
-  const [fileList, setFileList] = useState([])
-  const [parsedList, setParsedList] = useState([])
+  const confirmLoading = useBoolean(false);
+  const { value: visible, setTrue, setFalse } = useBoolean(false);
+  const [fileList, setFileList] = useState([]);
+  const [parsedList, setParsedList] = useState([]);
 
   const columns = [
     {
@@ -34,8 +34,8 @@ function UploadModal(props) {
       dataIndex: 'exist',
       title: '动作',
       render: (text, record) => {
-        if (record.status === 'error') return <Tag color='red'>上传失败</Tag>
-        return getParsed(record.name).exist ? <Tag color='gold'>更新</Tag> : <Tag color='green'>插入</Tag>
+        if (record.status === 'error') return <Tag color='red'>上传失败</Tag>;
+        return getParsed(record.name).exist ? <Tag color='gold'>更新</Tag> : <Tag color='green'>插入</Tag>;
       }
     },
     {
@@ -45,57 +45,57 @@ function UploadModal(props) {
         return (
           <a className='delete-text'
             onClick={e => {
-              const index = fileList.findIndex(file => file.uid === uid)
-              fileList.splice(index, 1)
-              setFileList([...fileList])
+              const index = fileList.findIndex(file => file.uid === uid);
+              fileList.splice(index, 1);
+              setFileList([...fileList]);
             }}>删除</a>
-        )
+        );
       }
     }
-  ]
+  ];
 
   useListener('openUploadModal', () => {
-    setFileList([])
-    setTrue()
-  })
+    setFileList([]);
+    setTrue();
+  });
 
   function getParsed(fileName) {
-    return parsedList.find(d => d.fileName === fileName) || {}
+    return parsedList.find(d => d.fileName === fileName) || {};
   }
 
   function handleFileChange({ file, fileList }) {
     if (file.status === 'done') {
-      clearTimeout(timer.current)
+      clearTimeout(timer.current);
       timer.current = setTimeout(() => {
-        const fileNameList = fileList.map(item => item.name)
+        const fileNameList = fileList.map(item => item.name);
         axios.post('/article/checkExist', { fileNameList }).then(list => {
-          setParsedList(list)
-        })
-      }, 500)
+          setParsedList(list);
+        });
+      }, 500);
     }
-    setFileList(fileList)
+    setFileList(fileList);
   }
 
   function handleSubmit(e) {
     const uploadList = fileList.reduce((list, file) => {
       if (file.status === 'done') {
-        const result = parsedList.find(d => file.name === d.fileName)
-        list.push(result)
+        const result = parsedList.find(d => file.name === d.fileName);
+        list.push(result);
       }
-      return list
-    }, [])
-    confirmLoading.setTrue()
+      return list;
+    }, []);
+    confirmLoading.setTrue();
     axios.post('/article/upload/confirm', { authorId, uploadList }).then(response => {
-      confirmLoading.setFalse()
-      setFalse()
+      confirmLoading.setFalse();
+      setFalse();
       notification.success({
         message: 'upload article success',
         description: `insert ${response.insertList.length} article and update ${response.updateList.length} article`
-      })
+      });
     }).catch(error => {
-      console.log('error: ', error)
-      confirmLoading.setFalse()
-    })
+      console.log('error: ', error);
+      confirmLoading.setFalse();
+    });
   }
 
   return (
@@ -143,7 +143,7 @@ function UploadModal(props) {
       }
 
     </Modal>
-  )
+  );
 }
 
-export default UploadModal
+export default UploadModal;

@@ -1,30 +1,30 @@
-import React, { useState } from 'react'
-import { Input, Icon, Row } from 'antd'
-import { useHistory, useLocation } from 'react-router-dom'
-import useMount from '@/hooks/useMount'
-import { decodeQuery } from '@/utils'
+import React, { useState } from 'react';
+import { Input, Icon, Row } from 'antd';
+import { useHistory, useLocation } from 'react-router-dom';
+import useMount from '@/hooks/useMount';
+import { decodeQuery } from '@/utils';
 
 function SearchButton(props) {
-  const history = useHistory()
-  const location = useLocation()
-  const [keyword, setKeyword] = useState('')
+  const history = useHistory();
+  const location = useLocation();
+  const [keyword, setKeyword] = useState('');
 
   useMount(() => {
-    const { keyword } = decodeQuery(location.search)
-    keyword && setKeyword(keyword)
-  })
+    const { keyword } = decodeQuery(location.search);
+    keyword && setKeyword(keyword);
+  });
 
   const handleSubmit = () => {
-    if (keyword) history.push(`/?page=1&keyword=${keyword}`)
-  }
+    if (keyword) history.push(`/?page=1&keyword=${keyword}`);
+  };
 
   const handleChange = e => {
-    setKeyword(e.target.value)
-  }
+    setKeyword(e.target.value);
+  };
 
   const handlePressEnter = e => {
-    e.target.blur()
-  }
+    e.target.blur();
+  };
 
   return (
     <div id='search-box'>
@@ -40,7 +40,7 @@ function SearchButton(props) {
         style={{ width: 200 }}
       />
     </div>
-  )
+  );
 }
 
-export default SearchButton
+export default SearchButton;

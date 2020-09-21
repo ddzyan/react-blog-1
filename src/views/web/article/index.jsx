@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import './index.less'
+import React, { useState, useEffect } from 'react';
+import './index.less';
 
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
 // methods
-import axios from '@/utils/axios'
-import { translateMarkdown, calcCommentsCount } from '@/utils'
-import useAjaxLoading from '@/hooks/useAjaxLoading'
+import axios from '@/utils/axios';
+import { translateMarkdown, calcCommentsCount } from '@/utils';
+import useAjaxLoading from '@/hooks/useAjaxLoading';
 
 // components
-import { Drawer, Icon, Divider, Spin } from 'antd'
-import ArticleTag from '@/components/ArticleTag'
-import SvgIcon from '@/components/SvgIcon'
-import Navigation from './Navigation'
-import Discuss from '@/components/Discuss'
+import { Drawer, Icon, Divider, Spin } from 'antd';
+import ArticleTag from '@/components/ArticleTag';
+import SvgIcon from '@/components/SvgIcon';
+import Navigation from './Navigation';
+import Discuss from '@/components/Discuss';
 
 function Article(props) {
-  const [loading, withLoading] = useAjaxLoading()
+  const [loading, withLoading] = useAjaxLoading();
 
   const [article, setArticle] = useState({
     title: '',
@@ -25,35 +25,35 @@ function Article(props) {
     comments: [],
     createdAt: '',
     viewCount: 0
-  })
-  const [drawerVisible, setDrawerVisible] = useState(false)
+  });
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      const hash = decodeURI(props.location.hash)
-      const ele = document.querySelector(`a[href="${hash}"]`)
-      ele && hash && ele.click() // 挂载时路由跳转到指定位置
-    }, 800)
-  }, [])
+      const hash = decodeURI(props.location.hash);
+      const ele = document.querySelector(`a[href="${hash}"]`);
+      ele && hash && ele.click(); // 挂载时路由跳转到指定位置
+    }, 800);
+  }, []);
 
   useEffect(() => {
     withLoading(axios.get(`/article/${props.match.params.id}`))
       .then(res => {
-        res.content = translateMarkdown(res.content)
-        setArticle(res)
+        res.content = translateMarkdown(res.content);
+        setArticle(res);
       })
       .catch(e => {
-        props.history.push('/404')
-      })
-  }, [props.match.params.id])
+        props.history.push('/404');
+      });
+  }, [props.match.params.id]);
 
   function setCommentList(list) {
-    setArticle({ ...article, comments: list })
+    setArticle({ ...article, comments: list });
   }
 
-  const { title, content, tags, categories, comments, createdAt, viewCount } = article
-  const articleId = parseInt(props.match.params.id)
-  const isFoldNavigation = useMediaQuery({ query: '(max-width: 1300px)' })
+  const { title, content, tags, categories, comments, createdAt, viewCount } = article;
+  const articleId = parseInt(props.match.params.id);
+  const isFoldNavigation = useMediaQuery({ query: '(max-width: 1300px)' });
   return (
     <Spin tip='Loading...' spinning={loading}>
       <article className='app-article' style={{ paddingRight: isFoldNavigation ? 0 : 275 }}>
@@ -106,7 +106,7 @@ function Article(props) {
         <Discuss articleId={articleId} commentList={comments} setCommentList={setCommentList} />
       </article>
     </Spin>
-  )
+  );
 }
 
-export default Article
+export default Article;

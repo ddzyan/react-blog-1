@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
-import axios from '@/utils/axios'
-import useMount from './useMount'
+import { useState, useEffect, useCallback } from 'react';
+import axios from '@/utils/axios';
+import useMount from './useMount';
 
 /**
  * useAntdTable hooks 用于处理 loading 逻辑以及换页 检索等
@@ -10,11 +10,11 @@ import useMount from './useMount'
  * @param {Object} obj.queryParams 默认要检索的参数
  */
 export default function useAntdTable({ requestUrl = '', queryParams = null, columns = [], isAdmin = true }) {
-  const [loading, setLoading] = useState(false)
-  const [dataList, setDataList] = useState([])
-  const [tablePagination, setTablePagination] = useState({ current: 1, pageSize: 10, totoal: 0 })
+  const [loading, setLoading] = useState(false);
+  const [dataList, setDataList] = useState([]);
+  const [tablePagination, setTablePagination] = useState({ current: 1, pageSize: 10, totoal: 0 });
 
-  useMount(fetchListWithLoading)
+  useMount(fetchListWithLoading);
 
   function fetchDataList(params) {
     const requestParams = {
@@ -22,45 +22,45 @@ export default function useAntdTable({ requestUrl = '', queryParams = null, colu
       pageSize: tablePagination.pageSize,
       ...queryParams,
       ...params
-    }
+    };
 
     axios
       .get(requestUrl, { params: requestParams })
       .then(response => {
-        const { page, pageSize } = requestParams
-        const { count, rows } = response
+        const { page, pageSize } = requestParams;
+        const { count, rows } = response;
 
         if (count > 0 && count > pageSize) {
-          const totalPage = Math.ceil(count / pageSize)
-          if (totalPage < page) return fetchDataList({ page: totalPage }) // 例如 删除了列表里只有一项且删除，则需要跳转回前一页 也即最后一页
+          const totalPage = Math.ceil(count / pageSize);
+          if (totalPage < page) return fetchDataList({ page: totalPage }); // 例如 删除了列表里只有一项且删除，则需要跳转回前一页 也即最后一页
         }
 
-        tablePagination.current = page
-        tablePagination.total = count
-        setTablePagination({ ...tablePagination }) // 设置分页
-        setDataList(rows)
-        setLoading(false)
-        console.log('%c useAntdTabled', 'background: yellow', requestParams, rows)
+        tablePagination.current = page;
+        tablePagination.total = count;
+        setTablePagination({ ...tablePagination }); // 设置分页
+        setDataList(rows);
+        setLoading(false);
+        console.log('%c useAntdTabled', 'background: yellow', requestParams, rows);
       })
       .catch(error => {
-        console.log('fetchDataList error: ', requestParams, error)
-        setLoading(false)
-      })
+        console.log('fetchDataList error: ', requestParams, error);
+        setLoading(false);
+      });
   }
 
   async function fetchListWithLoading(params) {
-    setLoading(true)
-    fetchDataList(params)
+    setLoading(true);
+    fetchDataList(params);
   }
 
   async function updateList(func) {
     try {
-      setLoading(true)
-      await func()
-      fetchDataList()
+      setLoading(true);
+      await func();
+      fetchDataList();
     } catch (error) {
-      console.log('updateList error: ', error)
-      setLoading(false)
+      console.log('updateList error: ', error);
+      setLoading(false);
     }
   }
 
@@ -70,7 +70,7 @@ export default function useAntdTable({ requestUrl = '', queryParams = null, colu
    */
   function handleTableChange(pagination, filters, sorter) {
     if (JSON.stringify(filters) === '{}' && JSON.stringify(sorter) === '{}') {
-      fetchListWithLoading({ page: pagination.current })
+      fetchListWithLoading({ page: pagination.current });
     }
   }
 
@@ -78,7 +78,7 @@ export default function useAntdTable({ requestUrl = '', queryParams = null, colu
    * 检索功能
    */
   function onSearch(params) {
-    fetchListWithLoading({ page: 1, ...params })
+    fetchListWithLoading({ page: 1, ...params });
   }
 
   return {
@@ -100,5 +100,5 @@ export default function useAntdTable({ requestUrl = '', queryParams = null, colu
     updateList: useCallback(updateList, [tablePagination, queryParams]), // 进行 action 操作 比如删除修改数据后获取数据 @example updateList(() => { return axios.put('xxxx') })
     onSearch: useCallback(onSearch, [tablePagination, queryParams]),
     setLoading: useCallback(setLoading, [])
-  }
+  };
 }

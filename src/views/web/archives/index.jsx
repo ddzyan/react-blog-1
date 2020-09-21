@@ -1,18 +1,18 @@
-import React, { useState, useEffect, Fragment } from 'react'
-import './index.less'
+import React, { useState, useEffect, Fragment } from 'react';
+import './index.less';
 
-import { ARCHIVES_PAGESIZE } from '@/utils/config'
+import { ARCHIVES_PAGESIZE } from '@/utils/config';
 
 // methods
-import { groupBy } from '@/utils'
+import { groupBy } from '@/utils';
 
 // components
-import { Timeline, Icon, Spin } from 'antd'
-import { Link } from 'react-router-dom'
-import Pagination from '@/components/Pagination'
+import { Timeline, Icon, Spin } from 'antd';
+import { Link } from 'react-router-dom';
+import Pagination from '@/components/Pagination';
 
 // hooks
-import useFetchList from '@/hooks/useFetchList'
+import useFetchList from '@/hooks/useFetchList';
 
 function Archives(props) {
   const { dataList, loading, pagination } = useFetchList({
@@ -21,9 +21,9 @@ function Archives(props) {
       pageSize: ARCHIVES_PAGESIZE
     },
     fetchDependence: [props.location.pathname, props.location.search]
-  })
+  });
 
-  const list = groupBy(dataList, item => item.createdAt.slice(0, 4)) // 按年份排序
+  const list = groupBy(dataList, item => item.createdAt.slice(0, 4)); // 按年份排序
 
   return (
     <div className='app-archives'>
@@ -60,7 +60,7 @@ function Archives(props) {
         <Pagination {...pagination} style={{ float: 'initial', marginTop: 10 }} />
       </Spin>
     </div>
-  )
+  );
 }
 
-export default Archives
+export default Archives;

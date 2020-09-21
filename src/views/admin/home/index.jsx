@@ -1,5 +1,5 @@
-import React from 'react'
-import './index.less'
+import React from 'react';
+import './index.less';
 
 const Minions = () => (
   <div className='loading-wrapper' style={{ height: 600 }}>
@@ -62,6 +62,6 @@ const Minions = () => (
       <div className='ground-shadow'></div>
     </div>
   </div>
-)
+);
 
-export default Minions
+export default Minions;

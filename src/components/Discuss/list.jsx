@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-import axios from '@/utils/axios'
-import { translateMarkdown } from '@/utils'
-import dayjs from '@/utils/dayjs'
-import AppAvatar from '@/components/Avatar'
-import { Comment, Button, Tooltip, Input, Icon, Popconfirm, message } from 'antd'
+import axios from '@/utils/axios';
+import { translateMarkdown } from '@/utils';
+import dayjs from '@/utils/dayjs';
+import AppAvatar from '@/components/Avatar';
+import { Comment, Button, Tooltip, Input, Icon, Popconfirm, message } from 'antd';
 
-const { TextArea } = Input
+const { TextArea } = Input;
 
 function CommentItem(props) {
-  const { children, item, userInfo, articleId, commentId, replyId, replyVisible } = props
-  const { user } = item
-  const [value, setValue] = useState('')
+  const { children, item, userInfo, articleId, commentId, replyId, replyVisible } = props;
+  const { user } = item;
+  const [value, setValue] = useState('');
 
   useEffect(() => {
-    replyVisible && setValue('')
-  }, [replyVisible])
+    replyVisible && setValue('');
+  }, [replyVisible]);
 
   function handleChange(e) {
-    setValue(e.target.value)
+    setValue(e.target.value);
   }
 
   function handleKeyUp(e) {
     if (e.ctrlKey && e.keyCode === 13) {
-      onSubmit()
+      onSubmit();
     }
   }
 
   function onSubmit() {
-    if (!userInfo.userId) return message.warn('您未登陆，请登录后再试。')
+    if (!userInfo.userId) return message.warn('您未登陆，请登录后再试。');
     axios
       .post('/discuss', {
         userId: userInfo.userId,
@@ -38,31 +38,31 @@ function CommentItem(props) {
         commentId
       })
       .then(res => {
-        props.onReply({ commentId: 0, replyId: 0 })
-        props.setCommentList(res.rows)
-      })
+        props.onReply({ commentId: 0, replyId: 0 });
+        props.setCommentList(res.rows);
+      });
   }
 
   // delete discuss
   function onDelete() {
     if (replyId) {
       axios.delete(`/discuss/reply/${replyId}`).then(() => {
-        const commentList = [...props.commentList]
-        const tagetComment = commentList.find(c => c.id === commentId)
-        tagetComment.replies = tagetComment.replies.filter(r => r.id !== replyId)
-        props.setCommentList(commentList)
-      })
+        const commentList = [...props.commentList];
+        const tagetComment = commentList.find(c => c.id === commentId);
+        tagetComment.replies = tagetComment.replies.filter(r => r.id !== replyId);
+        props.setCommentList(commentList);
+      });
     } else {
       axios.delete(`/discuss/comment/${commentId}`).then(() => {
-        let commentList = [...props.commentList]
-        commentList = commentList.filter(c => c.id !== commentId)
-        props.setCommentList(commentList)
-      })
+        let commentList = [...props.commentList];
+        commentList = commentList.filter(c => c.id !== commentId);
+        props.setCommentList(commentList);
+      });
     }
   }
 
   function handleReply() {
-    props.onReply({ commentId, replyId })
+    props.onReply({ commentId, replyId });
   }
 
   return (
@@ -105,13 +105,13 @@ function CommentItem(props) {
       )}
       {children}
     </Comment>
-  )
+  );
 }
 
 const CommentList = props => {
-  const userInfo = useSelector(state => state.user)
-  const { commentList, articleId } = props
-  const [replyTarget, setReplyTarget] = useState({ commentId: 0, replyId: 0 })
+  const userInfo = useSelector(state => state.user);
+  const { commentList, articleId } = props;
+  const [replyTarget, setReplyTarget] = useState({ commentId: 0, replyId: 0 });
 
   return (
     <div className='discuss-list'>
@@ -143,7 +143,7 @@ const CommentList = props => {
         </CommentItem>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default CommentList
+export default CommentList;

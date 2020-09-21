@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 // components
-import { Divider, Rate, Icon, Avatar } from 'antd'
-import Href from '@/components/Href'
-import SvgIcon from '@/components/SvgIcon'
+import { Divider, Rate, Icon, Avatar } from 'antd';
+import Href from '@/components/Href';
+import SvgIcon from '@/components/SvgIcon';
 
 const skills = [
   {
@@ -30,7 +30,7 @@ const skills = [
     label: '熟悉常用的算法与数据结构',
     rate: 2
   }
-]
+];
 
 const MyInfo = () => {
   return (
@@ -88,7 +88,7 @@ const MyInfo = () => {
         </li>
       </ul>
     </>
-  )
-}
+  );
+};
 
-export default MyInfo
+export default MyInfo;

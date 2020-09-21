@@ -1,7 +1,7 @@
-import React from 'react'
-import Search from './Search'
-import Navbar from './Navbar'
-import UserInfo from './UserInfo'
+import React from 'react';
+import Search from './Search';
+import Navbar from './Navbar';
+import UserInfo from './UserInfo';
 
 function HeaderRight(props) {
   return (
@@ -10,7 +10,7 @@ function HeaderRight(props) {
       <UserInfo />
       <Navbar />
     </div>
-  )
+  );
 }
 
-export default HeaderRight
+export default HeaderRight;

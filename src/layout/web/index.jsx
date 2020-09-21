@@ -1,14 +1,14 @@
-import React from 'react'
-import '@/styles/app.less'
-import { Layout, Icon, Row, Col, BackTop } from 'antd'
+import React from 'react';
+import '@/styles/app.less';
+import { Layout, Icon, Row, Col, BackTop } from 'antd';
 
-import Header from './header'
-import SideBar from './sidebar'
-import AppMain from './AppMain'
+import Header from './header';
+import SideBar from './sidebar';
+import AppMain from './AppMain';
 
 // 响应式
-const siderLayout = { xxl: 4, xl: 5, lg: 5, sm: 0, xs: 0 }
-const contentLayout = { xxl: 20, xl: 19, lg: 19, sm: 24, xs: 24 }
+const siderLayout = { xxl: 4, xl: 5, lg: 5, sm: 0, xs: 0 };
+const contentLayout = { xxl: 20, xl: 19, lg: 19, sm: 24, xs: 24 };
 
 const WebLayout = props => {
   return (
@@ -24,7 +24,7 @@ const WebLayout = props => {
       </Row>
       <BackTop target={() => document.querySelector('.app-main')} />
     </Layout>
-  )
-}
+  );
+};
 
-export default WebLayout
+export default WebLayout;

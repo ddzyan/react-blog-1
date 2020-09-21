@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import { connect, useSelector, useDispatch } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // methods
-import { loginout } from '@/redux/user/actions'
+import { loginout } from '@/redux/user/actions';
 
 // components
-import { Button, Dropdown, Menu, Avatar } from 'antd'
-import AppAvatar from '@/components/Avatar'
+import { Button, Dropdown, Menu, Avatar } from 'antd';
+import AppAvatar from '@/components/Avatar';
 
 // hooks
-import useBus from '@/hooks/useBus'
+import useBus from '@/hooks/useBus';
 
 function UserInfo(props) {
-  const dispatch = useDispatch()
-  const bus = useBus()
-  const userInfo = useSelector(state => state.user)
-  const { username, github, role } = userInfo
+  const dispatch = useDispatch();
+  const bus = useBus();
+  const userInfo = useSelector(state => state.user);
+  const { username, github, role } = userInfo;
 
   const MenuOverLay = (
     <Menu>
@@ -36,7 +36,7 @@ function UserInfo(props) {
         </span>
       </Menu.Item>
     </Menu>
-  )
+  );
   return (
     <div className='header-userInfo'>
       {username ? (
@@ -62,7 +62,7 @@ function UserInfo(props) {
           </>
         )}
     </div>
-  )
+  );
 }
 
-export default withRouter(UserInfo)
+export default withRouter(UserInfo);

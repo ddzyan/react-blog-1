@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import '@/styles/admin.less'
+import React, { useState, useEffect } from 'react';
+import '@/styles/admin.less';
 
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom'
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
-import { Layout } from 'antd'
-import AdminSideBar from './sidebar'
-import AdminHeader from './header'
-import Breadcrumb from '@/components/Breadcrumb'
+import { Layout } from 'antd';
+import AdminSideBar from './sidebar';
+import AdminHeader from './header';
+import Breadcrumb from '@/components/Breadcrumb';
 
-const { Sider, Header, Content, Footer } = Layout
+const { Sider, Header, Content, Footer } = Layout;
 
 const AdminLayout = props => {
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <Layout className='admin-container'>
@@ -33,7 +33,7 @@ const AdminLayout = props => {
 
       </Layout>
     </Layout>
-  )
-}
+  );
+};
 
-export default AdminLayout
+export default AdminLayout;

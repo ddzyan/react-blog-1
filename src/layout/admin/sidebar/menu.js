@@ -26,6 +26,6 @@ const menu = [
     icon: 'user',
     name: '用户管理'
   }
-]
+];
 
-export default menu
+export default menu;

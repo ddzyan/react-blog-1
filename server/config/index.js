@@ -1,11 +1,11 @@
-const devMode = process.env.NODE_ENV === 'development'
+const devMode = process.env.NODE_ENV === 'development';
 
 const config = {
   PORT: 6060, // 启动端口
-  ADMIN_GITHUB_LOGIN_NAME: 'gershonv', // 博主的 github 登录的账户名 user
+  ADMIN_GITHUB_LOGIN_NAME: 'ddzyan', // 博主的 github 登录的账户名 user
   GITHUB: {
-    client_id: 'c6a96a84105bb0be1fe5',
-    client_secret: '463f3994ab5687544b2cddbb6cf44920bf179ad9',
+    client_id: 'ee2f198ef75bef917eb5',
+    client_secret: 'b4dc8c8f80d7afa90edaeb47bb8714eddbdcb42b',
     access_token_url: 'https://github.com/login/oauth/access_token',
     fetch_user_url: 'https://api.github.com/user', // 用于 oauth2
     fetch_user: 'https://api.github.com/users/' // fetch user url https://api.github.com/users/gershonv
@@ -51,11 +51,11 @@ const config = {
       timezone: '+08:00'
     }
   }
-}
+};
 
 // 部署的环境变量设置
 if (!devMode) {
-  console.log('env production....')
+  console.log('env production....');
 
   // ==== 配置数据库
   config.DATABASE = {
@@ -63,14 +63,14 @@ if (!devMode) {
     database: '', // 数据库名
     user: '', // 账号
     password: '' // 密码
-  }
+  };
 
   // 配置 github 授权
-  config.GITHUB.client_id = ''
-  config.GITHUB.client_secret = ''
+  config.GITHUB.client_id = '';
+  config.GITHUB.client_secret = '';
 
   // ==== 配置 token 密钥
-  config.TOKEN.secret = ''
+  config.TOKEN.secret = '';
 
   // ==== 配置邮箱
 
@@ -78,8 +78,8 @@ if (!devMode) {
   config.EMAIL_NOTICE.transporterConfig.auth = {
     user: 'guodadablog@163.com', // generated ethereal user
     pass: '123456XXX' // generated ethereal password 授权码 而非 密码
-  }
-  config.EMAIL_NOTICE.WEB_HOST = 'https://guodada.fun'
+  };
+  config.EMAIL_NOTICE.WEB_HOST = 'https://guodada.fun';
 }
 
-module.exports = config
+module.exports = config;

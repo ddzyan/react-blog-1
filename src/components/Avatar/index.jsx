@@ -1,25 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './index.less'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './index.less';
 // config
-import { DISCUSS_AVATAR } from '@/config'
+import { DISCUSS_AVATAR } from '@/config';
 
 // components
-import Href from '@/components/Href'
-import { Avatar, Popover, Icon, Typography } from 'antd'
-import SvgIcon from '@/components/SvgIcon'
+import Href from '@/components/Href';
+import { Avatar, Popover, Icon, Typography } from 'antd';
+import SvgIcon from '@/components/SvgIcon';
 
-const { Text, Title } = Typography
+const { Text, Title } = Typography;
 
 function AvatarComponent({ username, github, role }) {
-  let avatarSrc = ''
-  if (github && github.avatar_url) avatarSrc = github.avatar_url
-  if (role === 1) avatarSrc = DISCUSS_AVATAR
-  return <Avatar src={avatarSrc}>{username}</Avatar>
+  let avatarSrc = '';
+  if (github && github.avatar_url) avatarSrc = github.avatar_url;
+  if (role === 1) avatarSrc = DISCUSS_AVATAR;
+  return <Avatar src={avatarSrc}>{username}</Avatar>;
 }
 //
 function AppAvatar(props) {
-  const { role, username, github } = props.userInfo
+  const { role, username, github } = props.userInfo;
   if (github && props.popoverVisible) {
     return (
       <Popover
@@ -74,19 +74,19 @@ function AppAvatar(props) {
         <AvatarComponent role={role} github={github} username={username} />
         <span />
       </Popover>
-    )
+    );
   } else {
-    return <AvatarComponent role={role} github={github} username={username} />
+    return <AvatarComponent role={role} github={github} username={username} />;
   }
 }
 
 AppAvatar.propTypes = {
   userInfo: PropTypes.object.isRequired,
   popoverVisible: PropTypes.bool
-}
+};
 
 AppAvatar.defaultProps = {
   popoverVisible: true
-}
+};
 
-export default AppAvatar
+export default AppAvatar;

@@ -1,26 +1,26 @@
-const Koa = require('koa')
-const koaBody = require('koa-body')
-const cors = require('koa2-cors')
-const error = require('koa-json-error')
-const logger = require('koa-logger')
+const Koa = require('koa');
+const koaBody = require('koa-body');
+const cors = require('koa2-cors');
+const error = require('koa-json-error');
+const logger = require('koa-logger');
 
 //  config
-const config = require('./config')
+const config = require('./config');
 
-const loadRouter = require('./router')
-const db = require('./models')
+const loadRouter = require('./router');
+const db = require('./models');
 
 // app...
-const app = new Koa()
+const app = new Koa();
 // context binding...
-const context = require('./utils/context')
+const context = require('./utils/context');
 Object.keys(context).forEach(key => {
-  app.context[key] = context[key] // 绑定上下文对象
-})
+  app.context[key] = context[key]; // 绑定上下文对象
+});
 
 // moddlewares
-const authHandler = require('./middlewares/authHandler')
-const path = require('path')
+const authHandler = require('./middlewares/authHandler');
+const path = require('path');
 
 app
   .use(cors())
@@ -40,20 +40,20 @@ app
     })
   )
   .use(authHandler)
-  .use(logger())
+  .use(logger());
 
-loadRouter(app)
+loadRouter(app);
 
 app.listen(config.PORT, () => {
   db.sequelize
     .sync({ force: false }) // If force is true, each DAO will do DROP TABLE IF EXISTS ..., before it tries to create its own table
     .then(async () => {
-      const initData = require('./initData')
-      initData() // 创建初始化数据
-      console.log('sequelize connect success')
-      console.log(`sever listen on http://127.0.0.1:${config.PORT}`)
+      const initData = require('./initData');
+      initData(); // 创建初始化数据
+      console.log('sequelize connect success');
+      console.log(`sever listen on http://127.0.0.1:${config.PORT}`);
     })
     .catch(err => {
-      console.log(err)
-    })
-})
+      console.log(err);
+    });
+});

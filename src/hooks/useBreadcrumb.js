@@ -1,12 +1,12 @@
-import { useEffect } from 'react'
-import useBus from '@/hooks/useBus'
+import { useEffect } from 'react';
+import useBus from '@/hooks/useBus';
 
 export default function useBreadcrumb(list = []) {
-  const bus = useBus()
+  const bus = useBus();
   useEffect(() => {
-    bus.emit('breadcrumbList', list)
+    bus.emit('breadcrumbList', list);
     return () => {
-      bus.emit('breadcrumbList', [])
-    }
-  }, [])
+      bus.emit('breadcrumbList', []);
+    };
+  }, []);
 }
